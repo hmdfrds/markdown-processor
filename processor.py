@@ -5,6 +5,16 @@ def convert_markdown_to_html(input_file):
     with open(input_file, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
+    return convert_markdown(lines)
+
+
+def convert_markdown_to_html_from_string(md_string):
+    lines = md_string.splitlines()
+
+    return convert_markdown(lines)
+
+
+def convert_markdown(lines):
     html_lines = []
     in_ul = False
     in_ol = False
@@ -34,7 +44,7 @@ def convert_markdown_to_html(input_file):
         if header_match:
             header_level = len(header_match.group(1))
             header_text = header_match.group(2).strip()
-            html_lines.append(f"<h{header_level}>{header_text}</h{header_level}")
+            html_lines.append(f"<h{header_level}>{header_text}</h{header_level}>")
             continue
 
         # Process Blockquotes: Lines starting with '>'
@@ -86,7 +96,7 @@ def convert_markdown_to_html(input_file):
         if in_ol:
             html_lines.append("</ol>")
 
-        return "\n".join(html_lines)
+    return "\n".join(html_lines)
 
 
 def process_inline(text):

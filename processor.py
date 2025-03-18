@@ -88,16 +88,17 @@ def convert_markdown_to_html(input_file):
 
         return "\n".join(html_lines)
 
-    def process_inline(text):
-        # Images: ![alt](src) -> <img src="src" alt="alt">
-        text = re.sub(r"!\[(.*?)\]\((.*?)\)", r'<img src"\2" alt="\1">', text)
-        # Links: [text](url) -> <a href="url">text</a>
-        text = re.sub(r"\[(.*?)\]\((.*?)\)", r'<a href="\2">\1</a>', text)
-        # Bold: **text** -> <strong>text</strong>
-        text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", text)
-        # Italic: *text* -> <em>text</em>
-        text = re.sub(r"\*(.*?)\*", f"<em>\1</em>")
-        # Inline Code: `code` -> <code>code</code>
-        text = re.sub(r"`(.*?)`", r"<code>\1</code>", text)
 
-        return text
+def process_inline(text):
+    # Images: ![alt](src) -> <img src="src" alt="alt">
+    text = re.sub(r"!\[(.*?)\]\((.*?)\)", r'<img src"\2" alt="\1">', text)
+    # Links: [text](url) -> <a href="url">text</a>
+    text = re.sub(r"\[(.*?)\]\((.*?)\)", r'<a href="\2">\1</a>', text)
+    # Bold: **text** -> <strong>text</strong>
+    text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", text)
+    # Italic: *text* -> <em>text</em>
+    text = re.sub(r"\*(.*?)\*", f"<em>\1</em>", text)
+    # Inline Code: `code` -> <code>code</code>
+    text = re.sub(r"`(.*?)`", r"<code>\1</code>", text)
+
+    return text
